@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:storyteller/reels_viewer.dart';
-import 'package:storyteller/story_viewer.dart'; // Make sure this path is correct
+import 'package:storyteller/story_viewer.dart';
+import 'package:storyteller/custom_product_viewer.dart'; // 1. IMPORT YOUR NEW SCREEN
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -21,14 +22,13 @@ class HomeView extends StatelessWidget {
       backgroundColor: Colors.grey[50],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        // Use a GridView for a nice, scalable layout
         child: GridView.count(
-          crossAxisCount: 2, // 2 items per row
-          crossAxisSpacing: 16, // Spacing between items horizontally
-          mainAxisSpacing: 16, // Spacing between items vertically
-          childAspectRatio: 0.9, // Adjust aspect ratio for a taller look
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.9,
           children: [
-            // Reusable card widget for the "Reels" feature
+            // Card for "Reels Viewer"
             _FeatureCard(
               title: 'Reels Viewer',
               subtitle: 'Swipe vertically for endless fun!',
@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
                 );
               },
             ),
-            // Reusable card widget for the "Story" feature
+            // Card for "Story Viewer"
             _FeatureCard(
               title: 'Story Viewer',
               subtitle: 'Tap through engaging stories.',
@@ -62,7 +62,42 @@ class HomeView extends StatelessWidget {
                 );
               },
             ),
-            // You can easily add more features here in the future!
+            // 2. ADD THE NEW CARD FOR YOUR CUSTOM VIEWER
+            _FeatureCard(
+              title: 'Product Showcase',
+              subtitle: 'Custom image-based viewer.',
+              icon: Icons.shopping_bag_rounded,
+              gradient: const LinearGradient(
+                colors: [Color(0xFF16A085), Color(0xFFF4D03F)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomProductViewer(),
+                  ),
+                );
+              },
+            ),
+            // 3. (Optional) Add a placeholder to complete the grid
+            _FeatureCard(
+              title: 'Coming Soon',
+              subtitle: 'More exciting features on the way!',
+              icon: Icons.add_circle_outline_rounded,
+              gradient: LinearGradient(
+                colors: [Colors.grey[800]!, Colors.grey[600]!],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              onTap: () {
+                // You can add a snackbar or do nothing on tap
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Stay tuned for updates!')),
+                );
+              },
+            ),
           ],
         ),
       ),
